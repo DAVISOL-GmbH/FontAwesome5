@@ -88,9 +88,11 @@ namespace FontAwesome5.Generator
 
 #if DEBUG
       if (System.Diagnostics.Debugger.IsAttached)
+      {
         Console.WriteLine("All done. I'll leave if you press any key...");
+        Console.ReadKey();
+      }
 #endif
-      Console.ReadKey();
 
       return result;
     }
