@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FontAwesome5.Generator
 {
-    class Program
+  class Program
   {
     #region Private class to wrap source folder
 
@@ -71,11 +71,11 @@ namespace FontAwesome5.Generator
         else
         {
 #if DEBUG
-                    Console.WriteLine($"MISSING environment variable {FontAwesomeSourceEnvVarName}. Listing env vars:");
-                    foreach (var item in Environment.GetEnvironmentVariables().OfType<DictionaryEntry>())
-                    {
-                        Console.WriteLine($"  {item.Key} - {item.Value}");
-                    }
+          Console.WriteLine($"MISSING environment variable {FontAwesomeSourceEnvVarName}. Listing env vars:");
+          foreach (var item in Environment.GetEnvironmentVariables().OfType<DictionaryEntry>())
+          {
+            Console.WriteLine($"  {item.Key} - {item.Value}");
+          }
 #else
           Console.WriteLine($"MISSING environment variable {FontAwesomeSourceEnvVarName}.");
 #endif
@@ -86,7 +86,10 @@ namespace FontAwesome5.Generator
 
       var result = Generate(inputDirectory, sourcePath);
 
-      Console.WriteLine("All done. I'll leave if you press any key...");
+#if DEBUG
+      if (System.Diagnostics.Debugger.IsAttached)
+        Console.WriteLine("All done. I'll leave if you press any key...");
+#endif
       Console.ReadKey();
 
       return result;
