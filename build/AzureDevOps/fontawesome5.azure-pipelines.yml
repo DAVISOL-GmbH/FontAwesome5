@@ -25,11 +25,13 @@ steps:
 - task: DownloadSecureFile@1
   name: FontAwesomeSourcePackage
   displayName: Download Latest FontAwesome Package from Secure File
+  enabled: false
   inputs:
     secureFile: 'latest.zip'
 
 - task: CmdLine@2
   displayName: Copy FontAwesome5 Package to Source Directory
+  enabled: false
   inputs:
     script: |
       echo Copy secure file to source directory...
@@ -38,18 +40,10 @@ steps:
       copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
     failOnStderr: true
 
-- task: CopyFiles@2
-  displayName: Copy FontAwesome5 Package to Source Directory
-  enabled: false
-  inputs:
-    SourceFolder: '$(FontAwesomeSourcePackage.secureFilePath)'
-    Contents: '**'
-    TargetFolder: '$(FONTAWESOME5_SOURCE_FOLDER)'
-    CleanTargetFolder: true
-    OverWrite: true
 
 - task: ExtractFiles@1
   displayName: Extract FontAwesome5 Package
+  enabled: false
   inputs:
     archiveFilePatterns: '$(FONTAWESOME5_SOURCE_FOLDER)/latest.zip'
     destinationFolder: '$(FONTAWESOME5_SOURCE_FOLDER)'
@@ -60,7 +54,7 @@ steps:
   displayName: Download Generator Release from GitHub
   inputs:
     connection: 'DAVISOL-GmbH'
-    userRepository: 'FontAwesome5'
+    userRepository: 'DAVISOL-GmbH/FontAwesome5'
     defaultVersionType: 'latest'
     itemPattern: 'FontAwesome**.zip'
     downloadPath: '$(Build.SourcesDirectory)/bin'
