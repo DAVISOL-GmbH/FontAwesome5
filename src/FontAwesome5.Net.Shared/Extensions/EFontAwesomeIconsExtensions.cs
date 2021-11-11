@@ -65,7 +65,7 @@ namespace FontAwesome5.Extensions
       var visual = new DrawingVisual();
       using (var drawingContext = visual.RenderOpen())
       {
-        if (icon.GetSvg(out var strPath, out var width, out var height))
+        if (icon.GetSvg(out var strPath, out var width, out var height, out var strSecondaryPath))
         {
           drawingContext.DrawGeometry(brush, pen, Geometry.Parse(strPath));
         }
@@ -113,19 +113,41 @@ namespace FontAwesome5.Extensions
     /// </summary>
     /// <param name="icon">The FontAwesome icon to be drawn.</param>
     /// <param name="foregroundBrush">The System.Windows.Media.Brush to be used as the foreground.</param>
-    /// <param name="emSize">The font size in em.</param>
-    /// <returns>A new System.Windows.Shapes.Path</returns>
-    public static Path CreatePath(this EFontAwesomeIcon icon, Brush foregroundBrush, double emSize = 100)
+    /// <param name="secondaryBrush">The secondary foreground brush. For duotone icons only (FontAwesome Pro required).</param>
+    /// <returns>A new System.Windows.Shapes.Path or a System.Drawing.Canvas containing two pathes (duotone).</returns>
+    public static UIElement CreatePath(this EFontAwesomeIcon icon, Brush foregroundBrush, Brush secondaryBrush = null)
     {
-      if (icon.GetSvg(out var strPath, out var width, out var height))
+      if (icon.GetSvg(out var strPath, out var width, out var height, out var strSecondaryPath))
       {
-        return new Path
+        var mainPath = new Path
         {
           Data = Geometry.Parse(strPath),
           Width = width,
           Height = height,
           Fill = foregroundBrush
         };
+
+        if (string.IsNullOrEmpty(strSecondaryPath))
+          return mainPath;
+
+        var secondaryPath = new Path
+        {
+          Data = Geometry.Parse(strSecondaryPath),
+          Width = width,
+          Height = height,
+          Fill = secondaryBrush ?? foregroundBrush
+        };
+
+        var duotoneCanvas = new System.Windows.Controls.Canvas
+        {
+          Width = width,
+          Height = height
+        };
+
+        duotoneCanvas.Children.Add(mainPath);
+        duotoneCanvas.Children.Add(secondaryPath);
+        
+        return duotoneCanvas;
       }
       return null;
     }
@@ -133,13 +155,14 @@ namespace FontAwesome5.Extensions
     /// <summary>
     /// Creates a new System.Windows.Media.Geometry of a specified FontAwesomeIcon.
     /// </summary>
+    /// <remarks>Duotone icons not supported.</remarks>
     /// <param name="icon">The FontAwesome icon to be drawn.</param>
     /// <param name="width">The width of the SVG.</param>
     /// <param name="height">The height of the SVG</param>
     /// <returns>A new System.Windows.Media.Geometry</returns>
     public static Geometry CreateGeometry(this EFontAwesomeIcon icon, out int width, out int height)
     {
-      if (icon.GetSvg(out var strPath, out width, out height))
+      if (icon.GetSvg(out var strPath, out width, out height, out var strSecondaryPath))
       {
         return Geometry.Parse(strPath);
       }

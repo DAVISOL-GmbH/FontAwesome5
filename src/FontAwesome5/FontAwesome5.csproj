@@ -7,17 +7,26 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <Configurations>Debug;Release;FontAwesome Pro Debug;FontAwesome Pro Release</Configurations>
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>$(OutDir)\FontAwesome5.xml</DocumentationFile>
+    <DocumentationFile>FontAwesome5.xml</DocumentationFile>
   </PropertyGroup>
   
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>../FontAwesome5.NET/Key.snk</AssemblyOriginatorKeyFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright © Codinion 2018</Copyright>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='FontAwesome Pro Debug|netstandard1.4|AnyCPU'">
+    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.4|AnyCPU'">
+    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">

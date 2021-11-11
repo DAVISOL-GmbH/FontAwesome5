@@ -1,0 +1,12 @@
+# Entfernen Sie die folgende Zeile, wenn Sie EDITORCONFIG-Einstellungen von höheren Verzeichnissen vererben möchten.
+root = true
+
+# C#-Dateien
+[*.cs]
+
+#### Wichtige EditorConfig-Optionen ####
+
+# Einzüge und Abstände
+indent_size = 2
+indent_style = space
+tab_width = 2

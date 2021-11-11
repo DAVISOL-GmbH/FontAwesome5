@@ -6,28 +6,38 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <AssemblyName>FontAwesome5.Net</AssemblyName>
+    <AssemblyName>FontAwesome5.Net.Pro</AssemblyName>
     <RootNamespace>FontAwesome5</RootNamespace>
      <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>FontAwesome5.Net.xml</DocumentationFile>
+    <DocumentationFile>FontAwesome5.Net.Pro.xml</DocumentationFile>
     <Authors>Martin Topfstedt</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright © Codinion 2018</Copyright>
     <Company>Codinion</Company>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net40|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net50|AnyCPU'">
     <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
   </PropertyGroup>
 
 
   <ItemGroup>
     <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Brands-Regular-400.otf" Link="Fonts\Font Awesome 5 Brands-Regular-400.otf" />
-    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Free-Regular-400.otf" Link="Fonts\Font Awesome 5 Free-Regular-400.otf" />
-    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Free-Solid-900.otf" Link="Fonts\Font Awesome 5 Free-Solid-900.otf" />
+    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Pro-Regular-400.otf" Link="Fonts\Font Awesome 5 Pro-Regular-400.otf" />
+    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Pro-Solid-900.otf" Link="Fonts\Font Awesome 5 Pro-Solid-900.otf" />
+    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Pro-Light-300.otf" Link="Fonts\Font Awesome 5 Pro-Light-300.otf" />
+    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Duotone-Solid-900.otf" Link="Fonts\Font Awesome 5 Duotone-Solid-900.otf" />
   </ItemGroup>
 
   <ItemGroup>

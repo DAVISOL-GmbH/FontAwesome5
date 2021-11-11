@@ -1,65 +1,70 @@
 ﻿using FontAwesome5.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
-namespace FontAwesome5
+namespace FontAwesome5.Controls
 {
-    /// <summary>
-    /// Represents a control that draws an FontAwesome icon as an image.
-    /// </summary>
-    public class ImageAwesome
-        : Image, ISpinable, IRotatable, IFlippable, IPulsable
+    public class SvgAwesome : Viewbox, ISpinable, IRotatable, IFlippable, IPulsable
     {
         /// <summary>
-        /// Identifies the FontAwesome.WPF.ImageAwesome.Foreground dependency property.
+        /// Identifies the FontAwesome.WPF.SvgAwesome.Foreground dependency property.
         /// </summary>
         public static readonly DependencyProperty ForegroundProperty =
-            DependencyProperty.Register("Foreground", typeof(Brush), typeof(ImageAwesome), new PropertyMetadata(Brushes.Black, OnIconPropertyChanged));
+            DependencyProperty.Register("Foreground", typeof(Brush), typeof(SvgAwesome), new PropertyMetadata(Brushes.Black, OnIconPropertyChanged));
         /// <summary>
-        /// Identifies the FontAwesome.WPF.ImageAwesome.Icon dependency property.
+        /// Identifies the FontAwesome.WPF.SvgAwesome.SecondaryForeground dependency property.
+        /// </summary>
+        public static readonly DependencyProperty SecondaryForegroundProperty =
+            DependencyProperty.Register("SecondaryForeground", typeof(Brush), typeof(SvgAwesome), new PropertyMetadata(Brushes.Black, OnIconPropertyChanged));
+        /// <summary>
+        /// Identifies the FontAwesome.WPF.SvgAwesome.Icon dependency property.
         /// </summary>
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(EFontAwesomeIcon), typeof(ImageAwesome), new PropertyMetadata(EFontAwesomeIcon.None, OnIconPropertyChanged));
+            DependencyProperty.Register("Icon", typeof(EFontAwesomeIcon), typeof(SvgAwesome), new PropertyMetadata(EFontAwesomeIcon.None, OnIconPropertyChanged));
         /// <summary>
-        /// Identifies the FontAwesome.WPF.ImageAwesome.Spin dependency property.
+        /// Identifies the FontAwesome.WPF.SvgAwesome.Spin dependency property.
         /// </summary>
         public static readonly DependencyProperty SpinProperty =
-            DependencyProperty.Register("Spin", typeof(bool), typeof(ImageAwesome), new PropertyMetadata(false, OnSpinPropertyChanged, SpinCoerceValue));
+            DependencyProperty.Register("Spin", typeof(bool), typeof(SvgAwesome), new PropertyMetadata(false, OnSpinPropertyChanged, SpinCoerceValue));
         /// <summary>
-        /// Identifies the FontAwesome.WPF.ImageAwesome.Spin dependency property.
+        /// Identifies the FontAwesome.WPF.SvgAwesome.Spin dependency property.
         /// </summary>
         public static readonly DependencyProperty SpinDurationProperty =
-            DependencyProperty.Register("SpinDuration", typeof(double), typeof(ImageAwesome), new PropertyMetadata(1d, SpinDurationChanged, SpinDurationCoerceValue));
+            DependencyProperty.Register("SpinDuration", typeof(double), typeof(SvgAwesome), new PropertyMetadata(1d, SpinDurationChanged, SpinDurationCoerceValue));
         /// <summary>
         /// Identifies the FontAwesome.WPF.FontAwesome.Pulse dependency property.
         /// </summary>
         public static readonly DependencyProperty PulseProperty =
-            DependencyProperty.Register("Pulse", typeof(bool), typeof(ImageAwesome), new PropertyMetadata(false, OnPulsePropertyChanged, PulseCoerceValue));
+            DependencyProperty.Register("Pulse", typeof(bool), typeof(SvgAwesome), new PropertyMetadata(false, OnPulsePropertyChanged, PulseCoerceValue));
         /// <summary>
         /// Identifies the FontAwesome.WPF.FontAwesome.PulseDuration dependency property.
         /// </summary>
         public static readonly DependencyProperty PulseDurationProperty =
-            DependencyProperty.Register("PulseDuration", typeof(double), typeof(ImageAwesome), new PropertyMetadata(1d, PulseDurationChanged, PulseDurationCoerceValue));
+            DependencyProperty.Register("PulseDuration", typeof(double), typeof(SvgAwesome), new PropertyMetadata(1d, PulseDurationChanged, PulseDurationCoerceValue));
         /// <summary>
-        /// Identifies the FontAwesome.WPF.ImageAwesome.Rotation dependency property.
+        /// Identifies the FontAwesome.WPF.SvgAwesome.Rotation dependency property.
         /// </summary>
         public static readonly DependencyProperty RotationProperty =
-            DependencyProperty.Register("Rotation", typeof(double), typeof(ImageAwesome), new PropertyMetadata(0d, RotationChanged, RotationCoerceValue));
+            DependencyProperty.Register("Rotation", typeof(double), typeof(SvgAwesome), new PropertyMetadata(0d, RotationChanged, RotationCoerceValue));
         /// <summary>
-        /// Identifies the FontAwesome.WPF.ImageAwesome.FlipOrientation dependency property.
+        /// Identifies the FontAwesome.WPF.SvgAwesome.FlipOrientation dependency property.
         /// </summary>
         public static readonly DependencyProperty FlipOrientationProperty =
-            DependencyProperty.Register("FlipOrientation", typeof(EFlipOrientation), typeof(ImageAwesome), new PropertyMetadata(EFlipOrientation.Normal, FlipOrientationChanged));
-
-        static ImageAwesome()
+            DependencyProperty.Register("FlipOrientation", typeof(EFlipOrientation), typeof(SvgAwesome), new PropertyMetadata(EFlipOrientation.Normal, FlipOrientationChanged));
+        
+        static SvgAwesome()
         {
-            OpacityProperty.OverrideMetadata(typeof(ImageAwesome), new UIPropertyMetadata(1.0, OpacityChanged));
+            OpacityProperty.OverrideMetadata(typeof(SvgAwesome), new UIPropertyMetadata(1.0, OpacityChanged));
         }
 
-        public ImageAwesome()
+        public SvgAwesome()
         {
             IsVisibleChanged += (s, a) => CoerceValue(SpinProperty);
         }
@@ -76,6 +81,15 @@ namespace FontAwesome5
         {
             get { return (Brush)GetValue(ForegroundProperty); }
             set { SetValue(ForegroundProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the secondary foreground brush of the icon (for duotone icons only). Changing this property will cause the icon to be redrawn.
+        /// </summary>
+        public Brush SecondaryForeground
+        {
+            get { return (Brush)GetValue(SecondaryForegroundProperty); }
+            set { SetValue(SecondaryForegroundProperty, value); }
         }
 
         /// <summary>
@@ -98,27 +112,27 @@ namespace FontAwesome5
 
         private static void OnSpinPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not ImageAwesome imageAwesome)
+            if (d is not SvgAwesome svgAwesome)
             {
                 return;
             }
 
             if ((bool)e.NewValue)
             {
-                imageAwesome.BeginSpin();
+                svgAwesome.BeginSpin();
             }
             else
             {
-                imageAwesome.StopSpin();
-                imageAwesome.SetRotation();
+                svgAwesome.StopSpin();
+                svgAwesome.SetRotation();
             }
         }
 
         private static object SpinCoerceValue(DependencyObject d, object basevalue)
         {
-            var imageAwesome = (ImageAwesome)d;
+            var svgAwesome = (SvgAwesome)d;
 
-            return !imageAwesome.IsVisible || imageAwesome.Opacity == 0.0 || imageAwesome.SpinDuration == 0.0 ? false : basevalue;
+            return !svgAwesome.IsVisible || svgAwesome.Opacity == 0.0 || svgAwesome.SpinDuration == 0.0 ? false : basevalue;
         }
 
         /// <summary>
@@ -132,13 +146,13 @@ namespace FontAwesome5
 
         private static void SpinDurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not ImageAwesome imageAwesome || !imageAwesome.Spin || !(e.NewValue is double) || e.NewValue.Equals(e.OldValue))
+            if (d is not SvgAwesome svgAwesome || !svgAwesome.Spin || !(e.NewValue is double) || e.NewValue.Equals(e.OldValue))
             {
                 return;
             }
 
-            imageAwesome.StopSpin();
-            imageAwesome.BeginSpin();
+            svgAwesome.StopSpin();
+            svgAwesome.BeginSpin();
         }
 
         private static object SpinDurationCoerceValue(DependencyObject d, object value)
@@ -158,7 +172,7 @@ namespace FontAwesome5
 
         private static void OnPulsePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not ImageAwesome fontAwesome)
+            if (d is not SvgAwesome fontAwesome)
             {
                 return;
             }
@@ -176,7 +190,7 @@ namespace FontAwesome5
 
         private static object PulseCoerceValue(DependencyObject d, object basevalue)
         {
-            var fontAwesome = (ImageAwesome)d;
+            var fontAwesome = (SvgAwesome)d;
 
             return !fontAwesome.IsVisible || fontAwesome.Opacity == 0.0 || fontAwesome.PulseDuration == 0.0 ? false : basevalue;
         }
@@ -192,7 +206,7 @@ namespace FontAwesome5
 
         private static void PulseDurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not ImageAwesome fontAwesome || !fontAwesome.Pulse || !(e.NewValue is double) || e.NewValue.Equals(e.OldValue))
+            if (d is not SvgAwesome fontAwesome || !fontAwesome.Pulse || !(e.NewValue is double) || e.NewValue.Equals(e.OldValue))
             {
                 return;
             }
@@ -219,12 +233,12 @@ namespace FontAwesome5
 
         private static void RotationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not ImageAwesome imageAwesome || imageAwesome.Spin || !(e.NewValue is double) || e.NewValue.Equals(e.OldValue))
+            if (d is not SvgAwesome svgAwesome || svgAwesome.Spin || !(e.NewValue is double) || e.NewValue.Equals(e.OldValue))
             {
                 return;
             }
 
-            imageAwesome.SetRotation();
+            svgAwesome.SetRotation();
         }
 
         private static object RotationCoerceValue(DependencyObject d, object value)
@@ -244,24 +258,31 @@ namespace FontAwesome5
 
         private static void FlipOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not ImageAwesome imageAwesome || !(e.NewValue is EFlipOrientation) || e.NewValue.Equals(e.OldValue))
+            if (d is not SvgAwesome svgAwesome || !(e.NewValue is EFlipOrientation) || e.NewValue.Equals(e.OldValue))
             {
                 return;
             }
 
-            imageAwesome.SetFlipOrientation();
+            svgAwesome.SetFlipOrientation();
         }
 
         private static void OnIconPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not ImageAwesome imageAwesome)
+            if (d is not SvgAwesome svgAwesome)
             {
                 return;
             }
 
-            imageAwesome.SetValue(SourceProperty, imageAwesome.Icon.CreateImageSource(imageAwesome.Foreground, new Pen()));
+            if (svgAwesome.Icon == EFontAwesomeIcon.None)
+            {
+                svgAwesome.Child = null;
+            }
+            else
+            {
+                svgAwesome.Child = svgAwesome.Icon.CreatePath(svgAwesome.Foreground, secondaryBrush: svgAwesome.SecondaryForeground);
+            }
         }
 
-
+        
     }
 }

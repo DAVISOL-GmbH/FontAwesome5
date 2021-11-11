@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Media.Animation;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using FontAwesome5.Controls;
 #endif
 
 namespace FontAwesome5.Extensions

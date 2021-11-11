@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace FontAwesome5.Generator
 {
@@ -14,13 +12,15 @@ namespace FontAwesome5.Generator
     {
         Solid,
         Regular,
-        Brands
+        Brands,
+        Light,
+        Duotone
     }
 
     public class FontAwesomeManager
     {
         private static readonly Regex REG_PROP = new Regex(@"\([^)]*\)");
-        
+
         public FontAwesomeManager(string iconsJson)
         {
             Icons = JsonConvert.DeserializeObject<Dictionary<string, Icon>>(File.ReadAllText(iconsJson));
@@ -80,10 +80,76 @@ namespace FontAwesome5.Generator
 
         public class SVG
         {
+            private string _resolvedPath = null;
+            private string _secondaryPath = null;
+
             public string[] viewBox { get; set; }
             public int width { get; set; }
             public int height { get; set; }
-            public string path { get; set; }
+            [JsonIgnore]
+            public string path
+            {
+                get
+                {
+                    VerifyResolved();
+                    return _resolvedPath;
+                }
+            }
+            [JsonIgnore]
+            public string secondaryPath
+            {
+                get
+                {
+                    VerifyResolved();
+                    return _secondaryPath;
+                }
+            }
+
+            [JsonProperty(nameof(path))]
+            public object pathRaw { get; set; }
+
+            private void VerifyResolved()
+            {
+                if (_resolvedPath != null)
+                    return;
+
+                if (pathRaw is string singlePath)
+                {
+                    _resolvedPath = singlePath;
+                    return;
+                }
+
+                var pathParts = new List<string>();
+                if (pathRaw is IEnumerable<string> manyPaths)
+                    pathParts.AddRange(manyPaths);
+                else if (pathRaw is Newtonsoft.Json.Linq.JArray jsonArray)
+                {
+                    foreach (var jToken in jsonArray)
+                    {
+                        if (jToken.Type == Newtonsoft.Json.Linq.JTokenType.String)
+                        {
+                            pathParts.Add((string)jToken);
+                        }
+                    }
+                }
+                else
+                    throw new ArgumentException("This SVG item does not have a valid path!", "path");
+
+                if (pathParts.Count == 0)
+                {
+                    throw new ArgumentException("This SVG item does not have a valid path!", "path");
+                }
+                else if (pathParts.Count <= 2)
+                {
+                    _resolvedPath = pathParts[0];
+                    if (pathParts.Count == 2)
+                        _secondaryPath = pathParts[1];
+                }
+                else
+                {
+                    throw new ArgumentException("This SVG item does not have a valid path!", "path");
+                }
+            }
         }
     }
 }

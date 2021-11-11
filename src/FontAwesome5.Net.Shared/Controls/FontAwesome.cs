@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace FontAwesome5
+namespace FontAwesome5.Controls
 {
     /// <summary>
     /// Provides a lightweight control for displaying a FontAwesome icon as text.

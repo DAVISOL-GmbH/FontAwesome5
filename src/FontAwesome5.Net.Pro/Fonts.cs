@@ -21,23 +21,29 @@ namespace FontAwesome5
 
         public static void LoadFromResource()
         {
-            RegularFontFamily = new FontFamily(new Uri("pack://application:,,,/FontAwesome5.Net;component/"), "./Fonts/#Font Awesome 5 Free Regular");
-            SolidFontFamily = new FontFamily(new Uri("pack://application:,,,/FontAwesome5.Net;component/"), "./Fonts/#Font Awesome 5 Free Solid");
-            BrandsFontFamily = new FontFamily(new Uri("pack://application:,,,/FontAwesome5.Net;component/"), "./Fonts/#Font Awesome 5 Brands Regular");
+            RegularFontFamily = new FontFamily(new Uri("pack://application:,,,/FontAwesome5.Net.Pro;component/"), "./Fonts/#Font Awesome 5 Pro Regular");
+            SolidFontFamily = new FontFamily(new Uri("pack://application:,,,/FontAwesome5.Net.Pro;component/"), "./Fonts/#Font Awesome 5 Pro Solid");
+            LightFontFamily = new FontFamily(new Uri("pack://application:,,,/FontAwesome5.Net.Pro;component/"), "./Fonts/#Font Awesome 5 Pro Light");
+            DuotoneFontFamily = new FontFamily(new Uri("pack://application:,,,/FontAwesome5.Net.Pro;component/"), "./Fonts/#Font Awesome 5 Duotone Solid");
+            BrandsFontFamily = new FontFamily(new Uri("pack://application:,,,/FontAwesome5.Net.Pro;component/"), "./Fonts/#Font Awesome 5 Brands Regular");
         }
 
         public static void LoadFromDirectory(string path)
         {
-            RegularFontFamily = new FontFamily(new Uri($"file:///{path}", UriKind.Absolute), "./#Font Awesome 5 Free Regular");
-            SolidFontFamily = new FontFamily(new Uri($"file:///{path}", UriKind.Absolute), "./#Font Awesome 5 Free Solid");
+            RegularFontFamily = new FontFamily(new Uri($"file:///{path}", UriKind.Absolute), "./#Font Awesome 5 Pro Regular");
+            SolidFontFamily = new FontFamily(new Uri($"file:///{path}", UriKind.Absolute), "./#Font Awesome 5 Pro Solid");
+            LightFontFamily = new FontFamily(new Uri($"file:///{path}", UriKind.Absolute), "./#Font Awesome 5 Pro Light");
+            DuotoneFontFamily = new FontFamily(new Uri($"file:///{path}", UriKind.Absolute), "./#Font Awesome 5 Duotone Solid");
             BrandsFontFamily = new FontFamily(new Uri($"file:///{path}", UriKind.Absolute), "./#Font Awesome 5 Brands Regular");
         }
 
         public static void SaveFontFilesToDirectory(string path)
         {
-            var resManager = new ResourceManager("FontAwesome5.Net.g", Assembly.GetExecutingAssembly());
-            WriteResourceToFile(resManager, $"Fonts/Font Awesome 5 Free-Solid-900.otf", Path.Combine(path, "Font Awesome 5 Free-Solid-900.otf"));
-            WriteResourceToFile(resManager, $"Fonts/Font Awesome 5 Free-Regular-400.otf", Path.Combine(path, "Font Awesome 5 Free-Regular-400.otf"));
+            var resManager = new ResourceManager("FontAwesome5.Net.Pro.g", Assembly.GetExecutingAssembly());
+            WriteResourceToFile(resManager, $"Fonts/Font Awesome 5 Pro-Solid-900.otf", Path.Combine(path, "Font Awesome 5 Pro-Solid-900.otf"));
+            WriteResourceToFile(resManager, $"Fonts/Font Awesome 5 Pro-Regular-400.otf", Path.Combine(path, "Font Awesome 5 Pro-Regular-400.otf"));
+            WriteResourceToFile(resManager, $"Fonts/Font Awesome 5 Pro-Light-300.otf", Path.Combine(path, "Font Awesome 5 Pro-Light-300.otf"));
+            WriteResourceToFile(resManager, $"Fonts/Font Awesome 5 Duotone-Solid-900.otf", Path.Combine(path, "Font Awesome 5 Duotone-Solid-900.otf"));
             WriteResourceToFile(resManager, $"Fonts/Font Awesome 5 Brands-Regular-400.otf", Path.Combine(path, "Font Awesome 5 Brands-Regular-400.otf"));
         }
 
@@ -68,21 +74,19 @@ namespace FontAwesome5
         public static FontFamily SolidFontFamily;
 
         /// <summary>
-        /// FontAwesome5 Brands FontFamily
-        /// </summary>
-        public static FontFamily BrandsFontFamily;
-
-        /// <summary>
         /// FontAwesome5 Light FontFamily
         /// </summary>
-        [Obsolete("This style is only available with the paid FontAwesome Pro license")]
         public static FontFamily LightFontFamily;
 
         /// <summary>
         /// FontAwesome5 Duotone FontFamily
         /// </summary>
-        [Obsolete("This style is only available with the paid FontAwesome Pro license")]
         public static FontFamily DuotoneFontFamily;
+
+        /// <summary>
+        /// FontAwesome5 Brands FontFamily
+        /// </summary>
+        public static FontFamily BrandsFontFamily;
 
 
         /// <summary>
@@ -94,18 +98,16 @@ namespace FontAwesome5
         /// </summary>
         public static Typeface SolidTypeface => new Typeface(SolidFontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
         /// <summary>
-        /// FontAwesome5 Brands Typeface
-        /// </summary>
-        public static Typeface BrandsTypeface => new Typeface(BrandsFontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
-        /// <summary>
         /// FontAwesome5 Light Typeface
         /// </summary>
-        [Obsolete("This style is only available with the paid FontAwesome Pro license")]
-        public static Typeface LightTypeface => null;
+        public static Typeface LightTypeface => new Typeface(LightFontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
         /// <summary>
         /// FontAwesome5 Duotone Typeface
         /// </summary>
-        [Obsolete("This style is only available with the paid FontAwesome Pro license")]
-        public static Typeface DuotoneTypeface => null;
+        public static Typeface DuotoneTypeface => new Typeface(DuotoneFontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+        /// <summary>
+        /// FontAwesome5 Brands Typeface
+        /// </summary>
+        public static Typeface BrandsTypeface => new Typeface(BrandsFontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
     }
 }

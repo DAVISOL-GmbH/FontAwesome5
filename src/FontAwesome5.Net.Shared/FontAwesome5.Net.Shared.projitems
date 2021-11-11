@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>00e5cd1e-13de-49b7-a9fc-5e8082d48296</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>FontAwesome.Net.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Awesome.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\FontAwesome.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ImageAwesome.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\SvgAwesome.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\DrawingConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceSvgConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\LabelConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StyleConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\EFontAwesomeIconsExtensions.cs" />
+  </ItemGroup>
+</Project>

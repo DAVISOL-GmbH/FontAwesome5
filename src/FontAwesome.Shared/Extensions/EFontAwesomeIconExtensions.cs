@@ -1,5 +1,4 @@
-﻿using FontAwesome5.Extensions;
-#if WINDOWS_UWP
+﻿#if WINDOWS_UWP
 using Windows.UI.Xaml.Media;
 #else
 using System.Windows.Media;
@@ -17,11 +16,21 @@ namespace FontAwesome5.Extensions
         /// </summary>
         public static Typeface GetTypeFace(this EFontAwesomeIcon icon)
         {
-            switch (icon.GetStyle())
+            var iconStyle = icon.GetStyle();
+            switch (iconStyle)
             {
                 case EFontAwesomeStyle.Regular: return Fonts.RegularTypeface;
                 case EFontAwesomeStyle.Solid: return Fonts.SolidTypeface;
                 case EFontAwesomeStyle.Brands: return Fonts.BrandsTypeface;
+            }
+
+            if (FontAwesomeMetadata.License == FontAwesomeLicense.Pro)
+            {
+                switch (iconStyle)
+                {
+                    case EFontAwesomeStyle.Light: return Fonts.LightTypeface;
+                    case EFontAwesomeStyle.Duotone: return Fonts.DuotoneTypeface;
+                }
             }
 
             return Fonts.RegularTypeface;
@@ -32,11 +41,21 @@ namespace FontAwesome5.Extensions
         /// </summary>
         public static FontFamily GetFontFamily(this EFontAwesomeIcon icon)
         {
-            switch (icon.GetStyle())
+            var iconStyle = icon.GetStyle();
+            switch (iconStyle)
             {
                 case EFontAwesomeStyle.Regular: return Fonts.RegularFontFamily;
                 case EFontAwesomeStyle.Solid: return Fonts.SolidFontFamily;
-                case EFontAwesomeStyle.Brands: return Fonts.BrandsFontFamily;   
+                case EFontAwesomeStyle.Brands: return Fonts.BrandsFontFamily;
+            }
+
+            if (FontAwesomeMetadata.License == FontAwesomeLicense.Pro)
+            {
+                switch (iconStyle)
+                {
+                    case EFontAwesomeStyle.Light: return Fonts.LightFontFamily;
+                    case EFontAwesomeStyle.Duotone: return Fonts.DuotoneFontFamily;
+                }
             }
 
             return Fonts.RegularFontFamily;
