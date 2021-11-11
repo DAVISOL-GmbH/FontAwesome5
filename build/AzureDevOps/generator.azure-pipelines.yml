@@ -22,6 +22,7 @@ variables:
   libraryCounter: 'FontAwesome5GeneratorNet_$(Davisol.PackageMajorMinorVersion)'
   libraryBuildRevision: $[counter(variables['libraryCounter'], 1)]
   libraryBuildVersion: '$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevision)'
+  buildOutDirectory: '$(Build.SourcesDirectory)/bin/FontAwesome5.Generator'
 
 name: 'FontAwesome5_Generator_NET_v$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevision)$(Rev:.r)'
 
