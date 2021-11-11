@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.editorconfig = ..\.editorconfig
 		..\build\build.yml = ..\build\build.yml
 		..\CHANGELOG.md = ..\CHANGELOG.md
+		..\build\AzureDevOps\generator.azure-pipelines.yml = ..\build\AzureDevOps\generator.azure-pipelines.yml
 		..\build\GitVersion.yml = ..\build\GitVersion.yml
 		..\LICENSE = ..\LICENSE
 	EndProjectSection
@@ -17,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{C2DF6A3D-4A1A-43C4-9474-7591294B72E9}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet\FontAwesome5.nuspec = NuGet\FontAwesome5.nuspec
+		NuGet\FontAwesome5.template.Free.nuspec = NuGet\FontAwesome5.template.Free.nuspec
+		NuGet\FontAwesome5.template.Pro.nuspec = NuGet\FontAwesome5.template.Pro.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5DB18EB6-0943-4E8A-A9D7-C7146AD79C00}"
