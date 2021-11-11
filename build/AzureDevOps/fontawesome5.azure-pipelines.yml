@@ -24,23 +24,24 @@ name: 'FontAwesome5_NET_v$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevis
 steps:
 - task: DownloadSecureFile@1
   name: FontAwesomeSourcePackage
+  displayName: Download Latest FontAwesome Package from Secure File
   inputs:
     secureFile: 'latest.zip'
 
 - task: CmdLine@2
   displayName: Copy FontAwesome5 Package to Source Directory
+  enabled: false
   inputs:
     script: |
       echo Copy secure file to source directory...
-      echo copy /Y "$(mySecureFile.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
-      copy /Y "$(mySecureFile.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
+      echo copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
+      copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
     failOnStderr: true
 
 - task: CopyFiles@2
   displayName: Copy FontAwesome5 Package to Source Directory
-  enabled: false
   inputs:
-    SourceFolder: '$(mySecureFile.secureFilePath)'
+    SourceFolder: '$(FontAwesomeSourcePackage.secureFilePath)'
     Contents: '**'
     TargetFolder: '$(FONTAWESOME5_SOURCE_FOLDER)'
     CleanTargetFolder: true
