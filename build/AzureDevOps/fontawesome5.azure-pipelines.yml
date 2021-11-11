@@ -32,7 +32,7 @@ steps:
   inputs:
     script: |
       echo Copy secure file to source directory...
-      
+      echo copy /Y "$(mySecureFile.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
       copy /Y "$(mySecureFile.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
     failOnStderr: true
 
