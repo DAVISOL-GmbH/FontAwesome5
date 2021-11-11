@@ -44,10 +44,10 @@ steps:
     WriteBOM: false
     Title: 'FontAwesome5.Generator'
     Product: 'FontAwesome5.Generator'
-    Copyright: 'Copyright ©  2018'
-    VersionNumber: '$(foundationBuildVersion)'
-    FileVersionNumber: '$(foundationBuildVersion)'
-    InformationalVersion: '$(foundationBuildVersion)'
+    Copyright: 'Copyright ©2019 Codinion, Copyright ©2021 DAVISOL GmbH'
+    VersionNumber: '$(libraryBuildVersion)'
+    FileVersionNumber: '$(libraryBuildVersion)'
+    InformationalVersion: '$(libraryBuildVersion)'
     LogLevel: 'verbose'
     FailOnWarning: false
     DisableTelemetry: false
@@ -64,12 +64,12 @@ steps:
     Contents: |
       **/*
       !**/*Test*.*
-      !**/app.publish*.*
+      !**app.publish
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     OverWrite: true
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'FontAwesome5.Generator.Net'
+    ArtifactName: 'FontAwesome5.Generator.Net.$(libraryBuildVersion)'
     publishLocation: 'Container'
