@@ -16,7 +16,7 @@ variables:
   libraryCounter: 'FontAwesome5Net_$(Davisol.PackageMajorMinorVersion)'
   libraryBuildRevision: $[counter(variables['libraryCounter'], 1)]
   libraryBuildVersion: '$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevision)'
-  buildOutDirectory: '$(Build.SourcesDirectory)/bin/FontAwesome5.Generator'
+  buildOutDirectory: '$(Build.SourcesDirectory)/src/FontAwesome5.Net.Pro/bin/Release'
   FONTAWESOME5_SOURCE_FOLDER: '$(Build.SourcesDirectory)/fa5'
 
 name: 'FontAwesome5_NET_v$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevision)$(Rev:.r)'
@@ -25,13 +25,11 @@ steps:
 - task: DownloadSecureFile@1
   name: FontAwesomeSourcePackage
   displayName: Download Latest FontAwesome Package from Secure File
-  enabled: false
   inputs:
     secureFile: 'latest.zip'
 
 - task: CmdLine@2
   displayName: Copy FontAwesome5 Package to Source Directory
-  enabled: false
   inputs:
     script: |
       echo Copy secure file to source directory...
@@ -43,7 +41,6 @@ steps:
 
 - task: ExtractFiles@1
   displayName: Extract FontAwesome5 Package
-  enabled: false
   inputs:
     archiveFilePatterns: '$(FONTAWESOME5_SOURCE_FOLDER)/latest.zip'
     destinationFolder: '$(FONTAWESOME5_SOURCE_FOLDER)'
@@ -84,6 +81,7 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: Assembly-Info-NetFramework@2
+  enabled: false
   inputs:
     Path: '$(Build.SourcesDirectory)'
     FileNames: |
