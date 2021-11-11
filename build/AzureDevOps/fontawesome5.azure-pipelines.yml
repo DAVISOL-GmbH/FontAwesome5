@@ -1,0 +1,125 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: 'src/FontAwesome5.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: '$(Davisol.BuildConfigurationName)'
+  libraryCounter: 'FontAwesome5Net_$(Davisol.PackageMajorMinorVersion)'
+  libraryBuildRevision: $[counter(variables['libraryCounter'], 1)]
+  libraryBuildVersion: '$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevision)'
+  buildOutDirectory: '$(Build.SourcesDirectory)/bin/FontAwesome5.Generator'
+  FONTAWESOME5_SOURCE_FOLDER: '$(Build.SourcesDirectory)/fa5'
+
+name: 'FontAwesome5_NET_v$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevision)$(Rev:.r)'
+
+steps:
+- task: DownloadSecureFile@1
+  name: FontAwesomeSourcePackage
+  displayName: Download Latest FontAwesome Package from Secure File
+  enabled: false
+  inputs:
+    secureFile: 'latest.zip'
+
+- task: CmdLine@2
+  displayName: Copy FontAwesome5 Package to Source Directory
+  enabled: false
+  inputs:
+    script: |
+      echo Copy secure file to source directory...
+      mkdir "$(FONTAWESOME5_SOURCE_FOLDER)"
+      echo copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
+      copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
+    failOnStderr: true
+
+
+- task: ExtractFiles@1
+  displayName: Extract FontAwesome5 Package
+  enabled: false
+  inputs:
+    archiveFilePatterns: '$(FONTAWESOME5_SOURCE_FOLDER)/latest.zip'
+    destinationFolder: '$(FONTAWESOME5_SOURCE_FOLDER)'
+    cleanDestinationFolder: false
+    overwriteExistingFiles: true
+
+- task: DownloadGitHubRelease@0
+  displayName: Download Generator Release from GitHub
+  inputs:
+    connection: 'DAVISOL-GmbH'
+    userRepository: 'DAVISOL-GmbH/FontAwesome5'
+    defaultVersionType: 'latest'
+    itemPattern: 'FontAwesome**.zip'
+    downloadPath: '$(Build.SourcesDirectory)/bin'
+
+- task: ExtractFiles@1
+  displayName: Extract Generator Package
+  inputs:
+    archiveFilePatterns: 'bin/**/*.zip'
+    destinationFolder: '$(Build.SourcesDirectory)/bin/FontAwesome5.Generator.Latest'
+    cleanDestinationFolder: true
+    overwriteExistingFiles: true
+
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo Start Generator...
+      
+      $(Build.SourcesDirectory)/bin/FontAwesome5.Generator.Latest/FontAwesome5.Generator.exe
+    workingDirectory: '$(Build.SourcesDirectory)/bin/FontAwesome5.Generator.Latest'
+    failOnStderr: true
+
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: Assembly-Info-NetFramework@2
+  inputs:
+    Path: '$(Build.SourcesDirectory)'
+    FileNames: |
+      src\Tools\**\AssemblyInfo.cs
+      src\Tools\**\AssemblyInfo.vb
+    InsertAttributes: true
+    FileEncoding: 'utf-8'
+    WriteBOM: false
+    Title: 'FontAwesome5.Generator'
+    Product: 'FontAwesome5.Generator'
+    Copyright: 'Copyright ©2019 Codinion, Copyright ©2021 DAVISOL GmbH'
+    VersionNumber: '$(libraryBuildVersion)'
+    FileVersionNumber: '$(libraryBuildVersion)'
+    InformationalVersion: '$(libraryBuildVersion)'
+    LogLevel: 'verbose'
+    FailOnWarning: false
+    DisableTelemetry: false
+  
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(buildOutDirectory)'
+    Contents: |
+      **/*
+      !**/*Test*.*
+      !**app.publish
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'FontAwesome5.Net.$(libraryBuildVersion)'
+    publishLocation: 'Container'
