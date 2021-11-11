@@ -33,8 +33,8 @@ steps:
   inputs:
     script: |
       echo Copy secure file to source directory...
-      echo copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
-      copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)"
+      echo copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)/latest.zip"
+      copy /Y "$(FontAwesomeSourcePackage.secureFilePath)" "$(FONTAWESOME5_SOURCE_FOLDER)/latest.zip"
     failOnStderr: true
 
 - task: CopyFiles@2
@@ -126,5 +126,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'FontAwesome5.Generator.Net.$(libraryBuildVersion)'
+    ArtifactName: 'FontAwesome5.Net.$(libraryBuildVersion)'
     publishLocation: 'Container'
