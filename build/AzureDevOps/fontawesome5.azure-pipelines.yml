@@ -30,7 +30,6 @@ steps:
 
 - task: CmdLine@2
   displayName: Copy FontAwesome5 Package to Source Directory
-  enabled: false
   inputs:
     script: |
       echo Copy secure file to source directory...
@@ -40,6 +39,7 @@ steps:
 
 - task: CopyFiles@2
   displayName: Copy FontAwesome5 Package to Source Directory
+  enabled: false
   inputs:
     SourceFolder: '$(FontAwesomeSourcePackage.secureFilePath)'
     Contents: '**'
@@ -50,7 +50,7 @@ steps:
 - task: ExtractFiles@1
   displayName: Extract FontAwesome5 Package
   inputs:
-    archiveFilePatterns: 'latest.zip'
+    archiveFilePatterns: '$(FONTAWESOME5_SOURCE_FOLDER)/latest.zip'
     destinationFolder: '$(FONTAWESOME5_SOURCE_FOLDER)'
     cleanDestinationFolder: false
     overwriteExistingFiles: true
