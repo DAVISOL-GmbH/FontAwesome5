@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -9,7 +10,7 @@ namespace FontAwesome5.Generator
 {
   class Program
   {
-    #region Private class to wrap source folder
+    #region Private class to wrap source folder and write generator config
 
     private class FontAwesomeSourceInformation
     {
@@ -37,6 +38,30 @@ namespace FontAwesome5.Generator
       public string License { get; }
     }
 
+    private class FontAwesomeGeneratorConfiguration
+    {
+      public FontAwesomeGeneratorConfiguration(FontAwesomeSourceInformation sourceDir)
+      {
+        FontAwesomeVersion = sourceDir.Version;
+        FontAwesomeLicense = sourceDir.License == ProLicense ? ProLicense : FreeLicense;
+        GeneratorVersion = GetGeneratorVersion();
+        GeneratedAt = DateTime.UtcNow;
+      }
+
+      [JsonProperty("faVersion")]
+      public string FontAwesomeVersion { get; }
+
+      [JsonProperty("faLicense")]
+      public string FontAwesomeLicense { get; }
+
+      [JsonProperty("generatorVersion")]
+      public string GeneratorVersion { get; }
+
+      [JsonProperty("generatedAt")]
+      public DateTime GeneratedAt { get; }
+
+    }
+
     #endregion
 
     private const string FontAwesomeSourceEnvVarName = "FONTAWESOME5_SOURCE_FOLDER";
@@ -44,6 +69,7 @@ namespace FontAwesome5.Generator
     private const string NuspecProSourceRelativeFilePath = @"src\NuGet\FontAwesome5.template.Pro.nuspec";
     private const string NuspecTargetRelativeFilePath = @"src\NuGet\FontAwesome5.nuspec";
     private const string FontAwesomeFontsRelativeTargetPath = @"font-awesome\otfs";
+    private const string GeneratorConfigRelativeTargetPath = @"font-awesome\generator.config";
     private const string FreeLicense = "Free";
     private const string ProLicense = "Pro";
 
@@ -72,7 +98,7 @@ namespace FontAwesome5.Generator
         {
 #if DEBUG
           Console.WriteLine($"MISSING environment variable {FontAwesomeSourceEnvVarName}. Listing env vars:");
-          foreach (var item in Environment.GetEnvironmentVariables().OfType<DictionaryEntry>())
+          foreach (var item in Environment.GetEnvironmentVariables().OfType<System.Collections.DictionaryEntry>())
           {
             Console.WriteLine($"  {item.Key} - {item.Value}");
           }
@@ -257,7 +283,9 @@ namespace FontAwesome5.Generator
 
       CopyFonts(inputDirectory, sourceDir);
 
-      UpdateNuspecFile(sourceDir, inputDirectory);
+      UpdateNuspecFile(inputDirectory, sourceDir);
+
+      WriteGeneratorConfig(inputDirectory, sourceDir);
 
       return 0;
     }
@@ -602,8 +630,45 @@ namespace FontAwesome5.Generator
       return null;
     }
 
+    private static string GetGeneratorVersion()
+    {
+      string assemblyFilePath = null;
+      try
+      {
+        var assembly = System.Reflection.Assembly.GetAssembly(typeof(Program));
+        assemblyFilePath = assembly.Location;
 
-    private static void UpdateNuspecFile(FontAwesomeSourceInformation sourceDir, string inputDirectory)
+        if (File.Exists(assemblyFilePath))
+        {
+          var versionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(assemblyFilePath);
+          if (versionInfo != null)
+          {
+            if (!string.IsNullOrEmpty(versionInfo.FileVersion))
+              return versionInfo.FileVersion;
+            if (!string.IsNullOrEmpty(versionInfo.ProductVersion))
+              return versionInfo.ProductVersion;
+          }
+        }
+
+        throw new FileLoadException("Either the generator assembly does not exist on disk or it does not contain version metadata.");
+      }
+      catch (Exception e)
+      {
+        var recentColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+
+        Console.WriteLine($"ERROR => Failed to get version of generator at {assemblyFilePath ?? "<null>"}! A {e.GetType()} occurred with message {e.Message}");
+        Console.ForegroundColor = recentColor;
+      }
+
+#if DEBUG
+      return "debug";
+#else
+      return "unknown";
+#endif
+    }
+
+    private static void UpdateNuspecFile(string inputDirectory, FontAwesomeSourceInformation sourceDir)
     {
       var sourceRelativePath = sourceDir.License == ProLicense ? NuspecProSourceRelativeFilePath : NuspecFreeSourceRelativeFilePath;
       if (string.IsNullOrEmpty(sourceRelativePath) || string.IsNullOrEmpty(NuspecTargetRelativeFilePath))
@@ -642,5 +707,24 @@ namespace FontAwesome5.Generator
       Console.WriteLine("Done copying fonts.");
     }
 
+    private static void WriteGeneratorConfig(string inputDirectory, FontAwesomeSourceInformation sourceDir)
+    {
+      var configTargetPath = Path.Combine(inputDirectory, GeneratorConfigRelativeTargetPath);
+      Console.WriteLine();
+      Console.WriteLine($"Write generator config to {configTargetPath} ...");
+
+      var generatorConfig = new FontAwesomeGeneratorConfiguration(sourceDir);
+
+      var serializer = new JsonSerializerSettings()
+      {
+        TypeNameHandling = TypeNameHandling.None,
+        DefaultValueHandling = DefaultValueHandling.Populate,
+        Formatting = Formatting.Indented
+      };
+      var configContents = JsonConvert.SerializeObject(generatorConfig, serializer);
+      File.WriteAllText(configTargetPath, configContents);
+
+      Console.WriteLine("Done writing generator config file.");
+    }
   }
 }
