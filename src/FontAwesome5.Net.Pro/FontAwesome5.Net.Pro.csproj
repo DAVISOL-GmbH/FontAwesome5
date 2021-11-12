@@ -19,39 +19,22 @@
     <Company>Codinion</Company>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net50|AnyCPU'">
-    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net40|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
     <OutputPath>../bin/Debug</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>../bin/Release</OutputPath>
   </PropertyGroup>
 
 
   <ItemGroup>
-    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Brands-Regular-400.otf" Link="Fonts\Font Awesome 5 Brands-Regular-400.otf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Brands-Regular-400.otf" Link="Fonts\Font Awesome 5 Brands-Regular-400.otf"/>
     <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Pro-Regular-400.otf" Link="Fonts\Font Awesome 5 Pro-Regular-400.otf" />
     <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Pro-Solid-900.otf" Link="Fonts\Font Awesome 5 Pro-Solid-900.otf" />
-    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Pro-Light-300.otf" Link="Fonts\Font Awesome 5 Pro-Light-300.otf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Duotone-Solid-900.otf" Link="Fonts\Font Awesome 5 Duotone-Solid-900.otf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Pro-Light-300.otf" Link="Fonts\Font Awesome 5 Pro-Light-300.otf"/>
+    <Resource Include="..\..\Font-Awesome\otfs\Font Awesome 5 Duotone-Solid-900.otf" Link="Fonts\Font Awesome 5 Duotone-Solid-900.otf"/>
   </ItemGroup>
 
   <ItemGroup>

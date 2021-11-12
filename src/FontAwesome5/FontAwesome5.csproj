@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard1.4;netstandard2.1;net40;net5.0</TargetFrameworks>
     <Company>Codinion</Company>
     <Authors>Martin Topfstedt</Authors>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <Configurations>Debug;Release;FontAwesome Pro Debug;FontAwesome Pro Release</Configurations>
@@ -21,21 +21,21 @@
     <Copyright>Copyright © Codinion 2018</Copyright>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='FontAwesome Pro Debug|netstandard1.4|AnyCPU'">
-    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FontAwesome Pro Debug|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
     <OutputPath>../bin/Debug</OutputPath>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.4|AnyCPU'">
-    <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>../bin/Release</OutputPath>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.4|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
     <OutputPath>../bin/Debug</OutputPath>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='FontAwesome Pro Release|netstandard1.4|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FontAwesome Pro Release|AnyCPU'">
     <OutputPath>../bin/Release</OutputPath>
   </PropertyGroup>
 
