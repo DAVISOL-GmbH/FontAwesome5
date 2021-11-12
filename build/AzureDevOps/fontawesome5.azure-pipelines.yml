@@ -4,7 +4,13 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - 'src/Tools/*'
+    - 'build/AzureDevOps/generator.azure-pipelines.yml'
 
 pool:
   vmImage: 'windows-latest'
@@ -107,12 +113,31 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: CopyFiles@2
+  displayName: Copy Binaries to Staging
   inputs:
     SourceFolder: '$(buildOutDirectory)'
     Contents: |
       **/*
       !**/*Test*.*
       !**app.publish
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
+
+- task: CopyFiles@2
+  displayName: Copy Generated .nuspec to Staging
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/src/NuGet'
+    Contents: |
+      FontAwesome5.nuspec
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
+
+- task: CopyFiles@2
+  displayName: Copy generator.config to Staging
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/font-awesome'
+    Contents: |
+      generator.config
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     OverWrite: true
 
