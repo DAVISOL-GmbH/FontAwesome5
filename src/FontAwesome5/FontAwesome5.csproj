@@ -23,10 +23,20 @@
   
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='FontAwesome Pro Debug|netstandard1.4|AnyCPU'">
     <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
+    <OutputPath>../bin/Debug</OutputPath>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.4|AnyCPU'">
     <DefineConstants>TRACE;FONTAWESOME_PRO</DefineConstants>
+    <OutputPath>../bin/Release</OutputPath>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.4|AnyCPU'">
+    <OutputPath>../bin/Debug</OutputPath>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='FontAwesome Pro Release|netstandard1.4|AnyCPU'">
+    <OutputPath>../bin/Release</OutputPath>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
