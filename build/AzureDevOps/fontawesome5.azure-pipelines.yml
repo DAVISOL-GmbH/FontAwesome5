@@ -129,7 +129,7 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)/src/NuGet'
     Contents: |
       FontAwesome5.nuspec
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/NuGet'
     OverWrite: true
 
 - task: CopyFiles@2
