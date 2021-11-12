@@ -22,7 +22,7 @@ variables:
   libraryCounter: 'FontAwesome5Net_$(Davisol.PackageMajorMinorVersion)'
   libraryBuildRevision: $[counter(variables['libraryCounter'], 1)]
   libraryBuildVersion: '$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevision)'
-  buildOutDirectory: '$(Build.SourcesDirectory)/src/FontAwesome5.Net.Pro/bin/Release'
+  buildOutDirectory: '$(Build.SourcesDirectory)/src/bin/Release'
   FONTAWESOME5_SOURCE_FOLDER: '$(Build.SourcesDirectory)/fa5'
 
 name: 'FontAwesome5_NET_v$(Davisol.PackageMajorMinorVersion).$(libraryBuildRevision)$(Rev:.r)'
@@ -120,6 +120,8 @@ steps:
       **/*
       !**/*Test*.*
       !**app.publish
+      !FontAwesome5.UWP.Pro/**
+      !FontAwesome5.UWP/**
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     OverWrite: true
 
