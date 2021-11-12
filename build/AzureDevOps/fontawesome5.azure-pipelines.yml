@@ -133,6 +133,15 @@ steps:
     OverWrite: true
 
 - task: CopyFiles@2
+  displayName: Copy Package Icon to Staging
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/src'
+    Contents: |
+      icon.png
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
+
+- task: CopyFiles@2
   displayName: Copy generator.config to Staging
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/font-awesome'
