@@ -1,7 +1,7 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1387CB2-E6D3-4266-B1E7-065826845F0E}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{C2DF6A3D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5DB18EB6-0943-4E8A-A9D7-C7146AD79C00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome5.Generator", "Tools\FontAwesome5.Generator\FontAwesome5.Generator.csproj", "{36BAF672-62DD-46A9-B6E6-1F3B0AA0D84B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome5.Generator", "Tools\FontAwesome5.Generator\FontAwesome5.Generator.csproj", "{36BAF672-62DD-46A9-B6E6-1F3B0AA0D84B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome5.Net", "FontAwesome5.Net\FontAwesome5.Net.csproj", "{E3B67831-928E-4B93-8249-3BAB7E52AE3F}"
 EndProject
@@ -89,5 +89,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCE0C24A-AD07-48ED-8A93-2B927239ED7E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		FontAwesome.Shared\FontAwesome.Shared.projitems*{e3b67831-928e-4b93-8249-3bab7e52ae3f}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

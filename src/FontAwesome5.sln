@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1387CB2-E6D3-4266-B1E7-065826845F0E}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
+		..\.gitignore = ..\.gitignore
 		..\build\build.yml = ..\build\build.yml
 		..\CHANGELOG.md = ..\CHANGELOG.md
 		..\build\AzureDevOps\generator.azure-pipelines.yml = ..\build\AzureDevOps\generator.azure-pipelines.yml
@@ -24,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{C2DF6A3D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5DB18EB6-0943-4E8A-A9D7-C7146AD79C00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome5.Generator", "Tools\FontAwesome5.Generator\FontAwesome5.Generator.csproj", "{36BAF672-62DD-46A9-B6E6-1F3B0AA0D84B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome5.Generator", "Tools\FontAwesome5.Generator\FontAwesome5.Generator.csproj", "{36BAF672-62DD-46A9-B6E6-1F3B0AA0D84B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome5.UWP", "FontAwesome5.UWP\FontAwesome5.UWP.csproj", "{3DA649D8-590A-4BBD-8181-F01BC81748B7}"
 EndProject
@@ -35,8 +36,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{4AEDDC89-0F0F-4FFE-9E7F-FB2834A97BEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome5.Net40.Example", "Examples\FontAwesome5.Net40.Example\FontAwesome5.Net40.Example.csproj", "{C746EF21-96BB-4345-B888-A7BBEBAFBA3C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome5.NetCore.Example", "Examples\FontAwesome5.NetCore.Example\FontAwesome5.NetCore.Example.csproj", "{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome5.UWP.Example", "Examples\FontAwesome5.UWP.Example\FontAwesome5.UWP.Example.csproj", "{F9E78A5B-F7DB-4870-A2C4-9FE7FAFA5212}"
 EndProject
@@ -52,17 +51,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontAwesome5.Net50.Example.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontAwesome5.UWP.Example.Pro", "Examples\FontAwesome5.UWP.Example.Pro\FontAwesome5.UWP.Example.Pro.csproj", "{5016E0A4-2F15-4C9F-BCA3-A5D3558AA291}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps", "{B6BA54B6-169D-49F4-919B-592F4579155D}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\AzureDevOps\generator.azure-pipelines.yml = ..\build\AzureDevOps\generator.azure-pipelines.yml
+		..\build\AzureDevOps\Run-Generator.ps1 = ..\build\AzureDevOps\Run-Generator.ps1
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		FontAwesome.Shared\FontAwesome.Shared.projitems*{2b93e38a-d9a7-4571-b906-174714aaf9e2}*SharedItemsImports = 5
-		FontAwesome.Shared\FontAwesome.Shared.projitems*{2f36f2df-f8b2-49cb-91e7-e5c88e3a96d5}*SharedItemsImports = 13
-		FontAwesome.Shared\FontAwesome.Shared.projitems*{3cecbbcf-74fa-4090-8872-2af06d8bde15}*SharedItemsImports = 5
-		FontAwesome.Shared\FontAwesome.Shared.projitems*{3da649d8-590a-4bbd-8181-f01bc81748b7}*SharedItemsImports = 4
-		FontAwesome5.UWP.Shared\FontAwesome5.UWP.Shared.projitems*{3da649d8-590a-4bbd-8181-f01bc81748b7}*SharedItemsImports = 4
-		FontAwesome5.UWP.Shared\FontAwesome5.UWP.Shared.projitems*{968f7119-0d15-465a-b6e8-53a04bddf060}*SharedItemsImports = 13
-		FontAwesome.Shared\FontAwesome.Shared.projitems*{b09e110f-587d-490e-ab01-9d85450c23af}*SharedItemsImports = 4
-		FontAwesome5.UWP.Shared\FontAwesome5.UWP.Shared.projitems*{b09e110f-587d-490e-ab01-9d85450c23af}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -481,81 +476,6 @@ Global
 		{C746EF21-96BB-4345-B888-A7BBEBAFBA3C}.Release|x64.Build.0 = Release|Any CPU
 		{C746EF21-96BB-4345-B888-A7BBEBAFBA3C}.Release|x86.ActiveCfg = Release|Any CPU
 		{C746EF21-96BB-4345-B888-A7BBEBAFBA3C}.Release|x86.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|ARM.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|x64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Debug|x86.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|ARM.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|ARM.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|ARM64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|x64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|x64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|x86.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Debug|x86.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|ARM.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|ARM.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|ARM64.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|ARM64.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|x64.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|x64.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|x86.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Free Release|x86.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|ARM.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|ARM.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|ARM64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|x64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|x64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|x86.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Debug|x86.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|ARM.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|ARM.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|ARM64.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|ARM64.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|x64.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|x64.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|x86.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.FontAwesome Pro Release|x86.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|ARM.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|ARM.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|ARM64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|x64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|x64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|x86.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Debug|x86.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|ARM.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|ARM.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|ARM64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|ARM64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|x64.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|x64.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|x86.ActiveCfg = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Generator Release|x86.Build.0 = Debug|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|ARM.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|ARM.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|ARM64.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|x64.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|x64.Build.0 = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|x86.ActiveCfg = Release|Any CPU
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1}.Release|x86.Build.0 = Release|Any CPU
 		{F9E78A5B-F7DB-4870-A2C4-9FE7FAFA5212}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{F9E78A5B-F7DB-4870-A2C4-9FE7FAFA5212}.Debug|ARM.ActiveCfg = Debug|ARM
 		{F9E78A5B-F7DB-4870-A2C4-9FE7FAFA5212}.Debug|ARM.Build.0 = Debug|ARM
@@ -980,12 +900,22 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{36BAF672-62DD-46A9-B6E6-1F3B0AA0D84B} = {5DB18EB6-0943-4E8A-A9D7-C7146AD79C00}
 		{C746EF21-96BB-4345-B888-A7BBEBAFBA3C} = {4AEDDC89-0F0F-4FFE-9E7F-FB2834A97BEB}
-		{BAC749B5-1E4D-4175-8AD7-81BD0AE080C1} = {4AEDDC89-0F0F-4FFE-9E7F-FB2834A97BEB}
 		{F9E78A5B-F7DB-4870-A2C4-9FE7FAFA5212} = {4AEDDC89-0F0F-4FFE-9E7F-FB2834A97BEB}
 		{27EE4616-6AFC-4AF6-BD12-18C4CDA487A5} = {4AEDDC89-0F0F-4FFE-9E7F-FB2834A97BEB}
 		{5016E0A4-2F15-4C9F-BCA3-A5D3558AA291} = {4AEDDC89-0F0F-4FFE-9E7F-FB2834A97BEB}
+		{B6BA54B6-169D-49F4-919B-592F4579155D} = {B1387CB2-E6D3-4266-B1E7-065826845F0E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCE0C24A-AD07-48ED-8A93-2B927239ED7E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		FontAwesome.Shared\FontAwesome.Shared.projitems*{2b93e38a-d9a7-4571-b906-174714aaf9e2}*SharedItemsImports = 5
+		FontAwesome.Shared\FontAwesome.Shared.projitems*{2f36f2df-f8b2-49cb-91e7-e5c88e3a96d5}*SharedItemsImports = 13
+		FontAwesome.Shared\FontAwesome.Shared.projitems*{3cecbbcf-74fa-4090-8872-2af06d8bde15}*SharedItemsImports = 5
+		FontAwesome.Shared\FontAwesome.Shared.projitems*{3da649d8-590a-4bbd-8181-f01bc81748b7}*SharedItemsImports = 4
+		FontAwesome5.UWP.Shared\FontAwesome5.UWP.Shared.projitems*{3da649d8-590a-4bbd-8181-f01bc81748b7}*SharedItemsImports = 4
+		FontAwesome5.UWP.Shared\FontAwesome5.UWP.Shared.projitems*{968f7119-0d15-465a-b6e8-53a04bddf060}*SharedItemsImports = 13
+		FontAwesome.Shared\FontAwesome.Shared.projitems*{b09e110f-587d-490e-ab01-9d85450c23af}*SharedItemsImports = 4
+		FontAwesome5.UWP.Shared\FontAwesome5.UWP.Shared.projitems*{b09e110f-587d-490e-ab01-9d85450c23af}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal
